@@ -6,8 +6,9 @@ function App() {
     <div className="App">
       <center>
         CRON Schedule
+        <DateChose />
       </center>
-      <DateChose />
+
       
     </div>
   );

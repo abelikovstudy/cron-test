@@ -44,7 +44,7 @@ var React = require('react');
       />
       <label htmlFor="custom">Custom</label>
 */
-
+let corn = ['*' ,'*', '*', '*', '*']
 const days = [
     'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI' , 'SAT'
   ];
@@ -123,7 +123,7 @@ const checkValue = (input, type) =>{
 
 export function DateChose(){
 
-  let corn = ['*' ,'*', '*', '*', '*']
+
 
 
   const [minute, setMinute] = React.useState("Every")
@@ -145,7 +145,7 @@ export function DateChose(){
         break;
       case 'EveryStartingAt':
         if(checkValue(specMinuteEvery,tabIndex) && checkValue(specMinuteEveryAt,tabIndex)){
-          corn[tabIndex] = specMinuteEveryAt +  "-" + specMinuteEvery
+          corn[tabIndex] = specMinuteEvery +  "-" + specMinuteEveryAt
         }
         else{
           alert('Ошибка')
@@ -161,9 +161,8 @@ export function DateChose(){
         }
         corn[tabIndex] = specMinute      
         break;
-      
     }
-    setResult(corn.join(" "));
+    setResult(corn)
   }
   return (
   <>
@@ -173,18 +172,18 @@ export function DateChose(){
         <Tab>Minutes</Tab>
         <Tab>Hours</Tab>
         <Tab>Days</Tab>
-        <Tab>Moths</Tab>
-        <Tab>Year</Tab>
+        <Tab>Day of week</Tab>
+        <Tab>Month</Tab>
       </TabList>
 
 
       <TabPanel>    {/* Minute */}
-        <div class="SpanSelect">
+        <div className="SpanSelect">
               <input type="radio" name="minute" value="Every" id="every" checked={minute === "Every"} onChange={onOptionChange}/>
               <label class="SpanSelect-Element"   htmlFor="every">Every.</label> <br />
 
               <input type="radio" name="minute" value="EveryStartingAt" id="everystart" checked={minute === "EveryStartingAt"} onChange={onOptionChange}/>
-              <label class="SpanSelect-Element"   htmlFor="everystart">Every <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> minute starting at <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> minute.</label> <br />
+              <label class="SpanSelect-Element"   htmlFor="everystart">Between <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> minute and <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> minute.</label> <br />
 
               <input type="radio" name="minute" value="Specific" id="specific" checked={minute === "Specific"} onChange={onOptionChange}/>
               <label class="SpanSelect-Element"  htmlFor="specific">Specific minute(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as 1,2,3... </label> <br />
@@ -194,12 +193,12 @@ export function DateChose(){
       </TabPanel>
 
       <TabPanel> {/* Hour */}
-        <div class="SpanSelect">
+        <div className="SpanSelect">
                 <input type="radio" name="minute" value="Every" id="every" checked={minute === "Every"} onChange={onOptionChange}/>
                 <label class="SpanSelect-Element"   htmlFor="every">Every.</label> <br />
 
                 <input type="radio" name="minute" value="EveryStartingAt" id="everystart" checked={minute === "EveryStartingAt"} onChange={onOptionChange}/>
-                <label class="SpanSelect-Element"   htmlFor="everystart">Every <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> hour starting at <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> hour.</label> <br />
+                <label class="SpanSelect-Element"   htmlFor="everystart">Between <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> hour and <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> hour.</label> <br />
 
                 <input type="radio" name="minute" value="Specific" id="specific" checked={minute === "Specific"} onChange={onOptionChange}/>
                 <label class="SpanSelect-Element"  htmlFor="specific">Specific hours(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as 1,2,3... </label> <br />
@@ -208,12 +207,12 @@ export function DateChose(){
       </TabPanel>
 
       <TabPanel> {/* Day */}
-        <div class="SpanSelect">
+        <div className="SpanSelect">
                 <input type="radio" name="minute" value="Every" id="every" checked={minute === "Every"} onChange={onOptionChange}/>
                 <label class="SpanSelect-Element"   htmlFor="every">Every.</label> <br />
 
                 <input type="radio" name="minute" value="EveryStartingAt" id="everystart" checked={minute === "EveryStartingAt"} onChange={onOptionChange}/>
-                <label class="SpanSelect-Element"   htmlFor="everystart">Every <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> day starting at <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> day.</label> <br />
+                <label class="SpanSelect-Element"   htmlFor="everystart">Between <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> and <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> day.</label> <br />
 
                 <input type="radio" name="minute" value="Specific" id="specific" checked={minute === "Specific"} onChange={onOptionChange}/>
                 <label class="SpanSelect-Element"  htmlFor="specific">Specific day(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as 1,2,3... </label> <br />
@@ -221,35 +220,42 @@ export function DateChose(){
         </div>
       </TabPanel>
 
-      <TabPanel> {/* Month */}
-        <div class="SpanSelect">
+      <TabPanel> {/* Day of week */}
+        <div className="SpanSelect">
                 <input type="radio" name="minute" value="Every" id="every" checked={minute === "Every"} onChange={onOptionChange}/>
                 <label class="SpanSelect-Element"   htmlFor="every">Every.</label> <br />
 
                 <input type="radio" name="minute" value="EveryStartingAt" id="everystart" checked={minute === "EveryStartingAt"} onChange={onOptionChange}/>
-                <label class="SpanSelect-Element"   htmlFor="everystart">Every <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> month starting at <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> month.</label> <br />
+                <label class="SpanSelect-Element"   htmlFor="everystart">Between <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> day of week and <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/>.</label> <br />
 
                 <input type="radio" name="minute" value="Specific" id="specific" checked={minute === "Specific"} onChange={onOptionChange}/>
-                <label class="SpanSelect-Element"  htmlFor="specific">Specific month(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as 1,2,3... </label> <br />
+                <label class="SpanSelect-Element"  htmlFor="specific">Specific day of week(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as MON,TUE,WED... </label> <br />
                 
         </div>
       </TabPanel>
 
-      <TabPanel> {/* Year */}
-        <div class="SpanSelect">
+      <TabPanel> {/* Months */}
+        <div className="SpanSelect">
                 <input type="radio" name="minute" value="Every" id="every" checked={minute === "Every"} onChange={onOptionChange}/>
                 <label class="SpanSelect-Element"   htmlFor="every">Every.</label> <br />
 
                 <input type="radio" name="minute" value="EveryStartingAt" id="everystart" checked={minute === "EveryStartingAt"} onChange={onOptionChange}/>
-                <label class="SpanSelect-Element"   htmlFor="everystart">Every <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> year starting at <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> year.</label> <br />
+                <label class="SpanSelect-Element"   htmlFor="everystart">Between <input value={specMinuteEvery} onInput={e => setSpecMinuteEvery(e.target.value)} type="text"/> month and <input value={specMinuteEveryAt} onInput={e => setSpecMinuteEveryAt(e.target.value) }type="text"/> year.</label> <br />
 
                 <input type="radio" name="minute" value="Specific" id="specific" checked={minute === "Specific"} onChange={onOptionChange}/>
-                <label class="SpanSelect-Element"  htmlFor="specific">Specific year(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as 1,2,3... </label> <br />
+                <label class="SpanSelect-Element"  htmlFor="specific">Specific month(s)<input value={specMinute} onInput={e => setSpecMinute(e.target.value)} type="text"/> -- use separators as JUN,JUL,AUG... </label> <br />
                 
           </div>
       </TabPanel>
   </Tabs>
-  <input value={result} type="text"/>
+  <br />
+  <br />
+  <br />
+  <br />
+    <div className='Result'>
+      <p>Итоговый результат: </p><input value={result} type="text"/>
+    </div>
+
   </div>
   </>
   )
