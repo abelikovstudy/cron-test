@@ -1,69 +1,34 @@
-const days = [
-    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI' , 'SAT'
-  ];
-const months = [
-    'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
-  ];
+import {days, months} from './constants'
+const checkTimespan = (input, lowerBound = 0, upperBound) => {
+    if(!isNaN(input)){
+      let num = parseInt(input)
+      if(num >= lowerBound && num <= upperBound){
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }  
 
-const checkMinute = (input) => {
-    if(!isNaN(input)){
-      let num = parseInt(input)
-      if(num >= 0 && num <= 59){
-        return true;
-      }
-      return false;
-    }
-    return false;
+const checkDatespan = (input, dateType) => {
+  if(dateType.includes(input)){
+    return true;
   }
-  
-const checkHour = (input) => {
-    if(!isNaN(input)){
-      let num = parseInt(input)
-      if(num >= 0 && num <= 23){
-        return true;
-      }
-      return false;
-    }
-    return false;
-}
-  
-const checkDay = (input) => {
-    if(!isNaN(input)){
-      let num = parseInt(input)
-      if(num >= 1 && num <= 31){
-        return true;
-      }
-      return false;
-    }
-    return false;
-}
-  
-const checkDayOfWeek = (input) => {
-    if(days.includes(input)){
-      return true;
-    }
-    return false;
-}
-  
-const checkMonths = (input) => {
-    if(months.includes(input)){
-      return true;
-    }
-    return false;
+  return false;
 }
   
 export function checkValue(input, type){
     switch(type){
       case 0:
-        return checkMinute(input)
+        return checkTimespan(input, 0, 59)
       case 1:
-        return checkHour(input)
+        return checkTimespan(input, 0, 23)
       case 2:
-        return checkDay(input)
+        return checkTimespan(input, 1, 31)
       case 3:
-        return checkDayOfWeek(input)
+        return checkDatespan(input, days)
       case 4:
-        return checkMonths(input)
+        return checkDatespan(input, months)
       default:
         return false
     }

@@ -3,10 +3,9 @@ import 'react-tabs/style/react-tabs.css';
 import { TabContent } from './TabContent';
 import React from 'react';
 
-let corn = ['*' ,'*', '*', '*', '*']
-
 export function DateChose(){
 
+  let corn = ['*' ,'*', '*', '*', '*']
   const [tabIndex, setTabIndex] = React.useState(0);
   const [result, setResult] = React.useState("");
 
@@ -21,7 +20,7 @@ export function DateChose(){
         <Tab>Month</Tab>
       </TabList>
 
-      <TabPanel>    {/* Minute */}
+      <TabPanel> {/* Minute */}
         <TabContent name="minute" id="minute" tabIndex={tabIndex} corn={corn}/>
       </TabPanel>
 

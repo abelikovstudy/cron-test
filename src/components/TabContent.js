@@ -1,5 +1,6 @@
 import { checkValue } from '../utils';
 import React from 'react';
+import Select from 'react-select'
 
 export function TabContent({
     name,
@@ -7,6 +8,7 @@ export function TabContent({
     tabIndex,
     corn
   }){
+    
     const [span, setSpan] = React.useState("Every")
     const [spanBetweenStart, setSpanBetweenStart] = React.useState("0")
     const [spanBetweenEnd, setSpanBetweenEnd] = React.useState("0")
