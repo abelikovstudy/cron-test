@@ -12,12 +12,16 @@ const getPostfix = (i) => {
   }
 }
 
-export const daysofweek = [
-    'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI' , 'SAT'
-  ];
-export const months = [
-    'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
-  ];
+export const daysofweek = Array.from([ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' , 'Saturday' ], (el) => (
+    {
+      value : el.toUpperCase().slice(0,3),
+      label : el
+    }))
+export const months = Array.from([ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ], (el) => (
+    {
+      value : el.toUpperCase().slice(0,3),
+      label : el      
+    }))
 
 export const minutes = Array.from({ length: 60 } , (x,i) => (
     {

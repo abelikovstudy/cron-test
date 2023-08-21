@@ -2,7 +2,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { TabContent } from './TabContent';
 import React from 'react';
-import { minutes, hours, days } from '../constants';
+import { minutes, hours, days, daysofweek, months} from '../constants';
 export function DateChose(){
 
   let corn = ['*' ,'*', '*', '*', '*']
@@ -33,11 +33,11 @@ export function DateChose(){
       </TabPanel>
 
       <TabPanel> {/* Day of week */}
-        <TabContent name="dayofweek" id="dayofweek" tabIndex={tabIndex} corn={corn}/>
+        <TabContent name="dayofweek" id="dayofweek" tabIndex={tabIndex} corn={corn} selectValues={daysofweek}/>
       </TabPanel>
 
       <TabPanel> {/* Months */}
-        <TabContent name="month" id="month" tabIndex={tabIndex} corn={corn}/>
+        <TabContent name="month" id="month" tabIndex={tabIndex} corn={corn} selectValues={months}/>
       </TabPanel>
   </Tabs>
   <br />
