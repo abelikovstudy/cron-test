@@ -1,16 +1,45 @@
-import { checkValue } from '../utils';
+import { verifyValue } from '../utils';
 import React from 'react';
-import Select from 'react-select'
-
+import { SelectCustom } from './SelectCustom';
 export function TabContent({
     name,
     id,
+    selectValues,
     tabIndex,
     corn
   }){
     
     const [span, setSpan] = React.useState("Every")
-    const [spanBetweenStart, setSpanBetweenStart] = React.useState("0")
+
+  
+    const onOptionChange = e => {
+      setSpan(e.target.value)
+    }
+  
+    return (
+      <div className="SpanSelect">
+        <div className="SpanSelect-Option">
+            <input type="radio" name={name} value="Every" id={id} checked={span === "Every"} onChange={onOptionChange}/>
+            <label class="SpanSelect-Element" htmlFor="every">Every {name}.</label> <br />
+        </div>
+        
+        <div className="SpanSelect-Option">
+            <input type="radio" name={name} value="Between" id={id} checked={span === "Between"} onChange={onOptionChange}/>
+            <label class="SpanSelect-Element" htmlFor="everystart">Between <SelectCustom isMulti={false} options={selectValues}/> {name} and <SelectCustom isMulti={false} options={selectValues}/> {name}.</label> <br />
+        </div>
+        
+        <div className="SpanSelect-Option">
+            <input type="radio" name={name} value="Specific" id={id} checked={span === "Specific"} onChange={onOptionChange}/>
+            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): <SelectCustom isMulti={true} options={selectValues}/></label><br />    
+        </div>
+        
+    </div>
+    )
+  }
+
+
+  /*
+      const [spanBetweenStart, setSpanBetweenStart] = React.useState("0")
     const [spanBetweenEnd, setSpanBetweenEnd] = React.useState("0")
     const [spanSpec, setSpanSpec] = React.useState("0")
   
@@ -20,7 +49,7 @@ export function TabContent({
           corn[tabIndex] = '*'
           break;
         case 'EveryStartingAt':
-          if(checkValue(spanBetweenStart,tabIndex) && checkValue(spanBetweenEnd,tabIndex)){
+          if(verifyValue(spanBetweenStart,tabIndex) && verifyValue(spanBetweenEnd,tabIndex)){
             corn[tabIndex] = spanBetweenStart +  "-" + spanBetweenEnd
           }
           else{
@@ -30,7 +59,7 @@ export function TabContent({
         case 'Specific':
           let mins = spanSpec.split(',')
           for (let i = 0; i < mins.length; i++) {
-            if(!checkValue(mins[i],tabIndex)){
+            if(!verifyValue(mins[i],tabIndex)){
               alert('Ошибка')
               break;
             }
@@ -42,27 +71,4 @@ export function TabContent({
           break;
       }
     }
-  
-    const onOptionChange = e => {
-      setSpan(e.target.value)
-      changeCron(e.target.value)
-    }
-  
-    const onFieldChange = e =>{
-      setSpanSpec(e.target.value)
-      changeCron(span)
-    }
-  
-    return (
-      <div className="SpanSelect">
-      <input type="radio" name={name} value="Every" id={id} checked={span === "Every"} onChange={onOptionChange}/>
-      <label class="SpanSelect-Element"   htmlFor="every">Every.</label> <br />
-  
-      <input type="radio" name={name} value="EveryStartingAt" id={id} checked={span === "EveryStartingAt"} onChange={onOptionChange}/>
-      <label class="SpanSelect-Element"   htmlFor="everystart">Between <input value={spanBetweenStart} onInput={e => setSpanBetweenStart(e.target.value)} type="text"/> month and <input value={spanBetweenEnd} onInput={e => setSpanBetweenEnd(e.target.value) }type="text"/> year.</label> <br />
-      
-      <input type="radio" name={name} value="Specific" id={id} checked={span === "Specific"} onChange={onOptionChange}/>
-      <label class="SpanSelect-Element"  htmlFor="specific">Specific month(s)<input value={spanSpec} onInput={onFieldChange} type="text"/> -- use separators as JUN,JUL,AUG... </label> <br />
-      </div>
-    )
-  }
+  */

@@ -1,4 +1,4 @@
-import {days, months} from './constants'
+import {days, months } from './constants'
 const checkTimespan = (input, lowerBound = 0, upperBound) => {
     if(!isNaN(input)){
       let num = parseInt(input)
@@ -17,7 +17,7 @@ const checkDatespan = (input, dateType) => {
   return false;
 }
   
-export function checkValue(input, type){
+export function verifyValue(input, type){
     switch(type){
       case 0:
         return checkTimespan(input, 0, 59)
@@ -34,4 +34,3 @@ export function checkValue(input, type){
     }
   
 }
-
