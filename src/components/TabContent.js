@@ -10,29 +10,39 @@ export function TabContent({
   }){
     
     const [span, setSpan] = React.useState("Every")
-
+    const [dates, setDates] = React.useState({
+      span : [span]
+    })
   
     const onOptionChange = e => {
       setSpan(e.target.value)
     }
-  
+    React.useEffect(() => {corn(dates,tabIndex)},[dates])
+    const onDateChange = (selectValues,name) => {
+      setDates({
+        ...dates,
+        [name] : selectValues,
+        span : [span] 
+      })
+      //corn(dates,tabIndex) //?????
+    }
     return (
       <div className="SpanSelect">
         <div className="SpanSelect-Option">
-            <input type="radio" name={name} value="Every" id={id} checked={span === "Every"} onChange={onOptionChange}/>
+            <input type="radio" name={name} value="Every" id={id} onChange={onOptionChange}/>
             <label class="SpanSelect-Element" htmlFor="every">Every {name}.</label> <br />
         </div>
         
         <div className="SpanSelect-Option">
-            <input type="radio" name={name} value="Between" id={id} checked={span === "Between"} onChange={onOptionChange}/>
-            <label class="SpanSelect-Element" htmlFor="everystart">Between <SelectCustom isMulti={false} options={selectValues}/> {name} and <SelectCustom isMulti={false} options={selectValues}/> {name}.</label> <br />
+            <input type="radio" name={name} value="Between" id={id} onChange={onOptionChange}/>
+            <label class="SpanSelect-Element" htmlFor="everystart">Between <SelectCustom name="between-start" isMulti={false} options={selectValues} onDateChange={onDateChange}/> {name} and <SelectCustom name="between-end" isMulti={false} options={selectValues} onDateChange={onDateChange}/> {name}.</label> <br />
         </div>
         
         <div className="SpanSelect-Option">
-            <input type="radio" name={name} value="Specific" id={id} checked={span === "Specific"} onChange={onOptionChange}/>
-            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): <SelectCustom isMulti={true} options={selectValues}/></label><br />    
+            <input type="radio" name={name} value="Specific" id={id} onChange={onOptionChange}/>
+            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): <SelectCustom name="specific" isMulti={true} options={selectValues} onDateChange={onDateChange}/></label><br />    
         </div>
-        
+        <button onClick={() => console.log(dates)}>Clickk</button>
     </div>
     )
   }

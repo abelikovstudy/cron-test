@@ -2,8 +2,11 @@ import Select from 'react-select'
 
 export function SelectCustom({
     isMulti,
-    options
+    options,
+    onDateChange,
+    name
 }){
+
     return(
         <Select
         isMulti={isMulti} 
@@ -12,6 +15,7 @@ export function SelectCustom({
         classNamePrefix="react-select" 
         className="react-select--inline" 
         components={{IndicatorsContainer: () => null}}
+        onChange={(selectedDates) => onDateChange(selectedDates,name)}
         />
     )
 }
