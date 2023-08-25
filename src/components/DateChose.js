@@ -32,6 +32,28 @@ export function DateChose(){
     })
   }
 
+  const parseCron = (dateObject) => {
+    console.log(dateObject)
+    let buff = ""
+    for (let key in dateObject) {
+      switch(dateObject[key].span){
+        case "Every":
+          buff += '* ';
+        break;
+        case "Between":
+          buff += dateObject[key].between_start.value + '-' + dateObject[key].between_end.value + ' ';
+        break;
+        case "Specific":
+          let suppBuff = []
+          for(let date in dateObject[key].specific){
+            suppBuff.push(dateObject[key].specific[date].value)
+          }
+          buff += suppBuff.join(',') + ' '
+        break;
+      }
+    }
+    setResult(buff)
+  }
   return (
     <div className="DateChose">
     <Tabs defaultIndex={0} selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} forceRenderTabPanel={true}>
@@ -69,7 +91,7 @@ export function DateChose(){
   <br />
     <div className='Result'>
       <p>Итоговый результат: </p><input value={result} type="text"/>
-      <button onClick={() => console.log(cron)}>Button</button>
+      <button onClick={() => parseCron(cron)}>Button</button>
     </div>
   </div>
   )

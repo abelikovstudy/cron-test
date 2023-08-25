@@ -4,7 +4,8 @@ export function SelectCustom({
     isMulti,
     options,
     onDateChange,
-    name
+    name,
+    isDisabled
 }){
 
     return(
@@ -16,6 +17,7 @@ export function SelectCustom({
         className="react-select--inline" 
         components={{IndicatorsContainer: () => null}}
         onChange={(selectedDates) => onDateChange(selectedDates,name)}
+        isDisabled={isDisabled}
         />
     )
 }
