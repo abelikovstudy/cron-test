@@ -7,20 +7,32 @@ export function TabContent({
     tabIndex,
     corn
   }){
-    const [choices, setChoices] = React.useState([true, true])
+    const [enabledOption, setEnabledOption] = React.useState({
+      every : true,
+      between : false,
+      specific : false
+    })
     const [span, setSpan] = React.useState("Every")
     const [dates, setDates] = React.useState({
       span : span
     })
   
-    const onOptionChange = e => {
+    const onOptionChange = e => { // Когда меняется Radio Button
       setSpan(e.target.value)
       switch(e.target.value){
         case "Between":
-          setChoices([false,true])  
+          setEnabledOption({
+            every : false,
+            between : true,
+            specific : false
+          })  
         break;
         case "Specific":
-          setChoices([true,false])
+          setEnabledOption({
+            every : false,
+            between : false,
+            specific : true
+          })
         break;
       }
     }
@@ -36,17 +48,20 @@ export function TabContent({
       <div className="SpanSelect">
         <div className="SpanSelect-Option">
             <input type="radio" name={name} value="Every" id={id} onChange={onOptionChange} defaultChecked />
-            <label class="SpanSelect-Element" htmlFor="every">Every {name}.</label> <br />
+            <label class="SpanSelect-Element" htmlFor="every">Every {name}.</label> 
+            <br />
         </div>
         
         <div className="SpanSelect-Option">
             <input type="radio" name={name} value="Between" id={id} onChange={onOptionChange}/>
-            <label class="SpanSelect-Element" htmlFor="everystart">Between <SelectCustom name="between_start" isMulti={false} options={selectValues} onDateChange={onDateChange} isDisabled={choices[0]}/> {name} and <SelectCustom name="between_end" isMulti={false} options={selectValues} onDateChange={onDateChange} isDisabled={choices[0]}/> {name}.</label> <br />
+            <label class="SpanSelect-Element" htmlFor="everystart">Between <SelectCustom name="between_start" isMulti={false} options={selectValues} onDateChange={onDateChange} isEnabled={enabledOption.between}/> {name} and <SelectCustom name="between_end" isMulti={false} options={selectValues} onDateChange={onDateChange} isEnabled={enabledOption.between}/> {name}.</label>
+            <br />
         </div>
         
         <div className="SpanSelect-Option">
             <input type="radio" name={name} value="Specific" id={id} onChange={onOptionChange}/>
-            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): <SelectCustom name="specific" isMulti={true} options={selectValues} onDateChange={onDateChange} isDisabled={choices[1]}/></label><br />    
+            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): <SelectCustom name="specific" isMulti={true} options={selectValues} onDateChange={onDateChange} isEnabled={enabledOption.specific}/></label>
+            <br />    
         </div>
       </div>
     )
