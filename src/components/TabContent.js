@@ -16,9 +16,13 @@ export function TabContent({
     const [dates, setDates] = React.useState({
       span : span
     })
-  
-    const onOptionChange = e => { // Когда меняется Radio Button
+    React.useEffect(() => {corn(dates,tabIndex)},[dates])
+    const onOptionChange = e => { 
       setSpan(e.target.value)
+      setDates({
+        ...dates,
+        span : e.target.value,
+      })
       switch(e.target.value){
         case "Between":
           setEnabledOption({
@@ -36,7 +40,7 @@ export function TabContent({
         break;
       }
     }
-    React.useEffect(() => {corn(dates,tabIndex)},[dates])
+
     const onDateChange = (selectValues,name) => {
       setDates({
         ...dates,

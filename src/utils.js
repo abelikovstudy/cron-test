@@ -32,5 +32,9 @@ export function verifyValue(input, type){
       default:
         return false
     }
-  
 }
+
+export function isUndefined (value) { return (value === undefined) ? true : false }  
+
+
+

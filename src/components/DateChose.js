@@ -3,6 +3,7 @@ import 'react-tabs/style/react-tabs.css';
 import { TabContent } from './TabContent';
 import React from 'react';
 import { minutes, hours, days, daysofweek, months} from '../constants';
+import { isUndefined } from '../utils';
 export function DateChose(){
 
   const [cron, setCron] = React.useState({
@@ -32,28 +33,27 @@ export function DateChose(){
     })
   }
 
-  const parseCron = (dateObject) => {
-    console.log(dateObject)
-    let buff = ""
-    for (let key in dateObject) {
-      switch(dateObject[key].span){
-        case "Every":
-          buff += '* ';
-        break;
-        case "Between":
-          buff += dateObject[key].between_start.value + '-' + dateObject[key].between_end.value + ' ';
-        break;
-        case "Specific":
-          let suppBuff = []
-          for(let date in dateObject[key].specific){
-            suppBuff.push(dateObject[key].specific[date].value)
-          }
-          buff += suppBuff.join(',') + ' '
-        break;
-      }
+  const  parseCronElements = (data) =>{
+    switch(data.span){
+      case "Every":
+        return '*';
+      case "Between":
+        if (isUndefined(data.between_start) || isUndefined(data.between_end)) return '*'
+        else return data.between_start.value + '-' + data.between_end.value;
+      case "Specific":
+        if(isUndefined(data.specific)) return '*'
+        else return data.specific.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.value + ',', ''
+        ).slice(0, -1)
     }
-    setResult(buff)
   }
+
+  const parseCron = (dateObject) => {
+    let cronElements = []
+    for(let index in dateObject) cronElements.push(parseCronElements(dateObject[index]))
+    setResult(cronElements.join(' '))
+  }
+
   return (
     <div className="DateChose">
     <Tabs defaultIndex={0} selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} forceRenderTabPanel={true}>
