@@ -1,12 +1,7 @@
 import React from 'react';
 import { SelectCustom } from './SelectCustom';
-export function TabContent({
-    name,
-    id,
-    selectValues,
-    tabIndex,
-    corn
-  }){
+export function TabContent(props){
+    const {name, id, selectValues, tabIndex, corn} = props
     const [enabledOption, setEnabledOption] = React.useState({
       every : true,
       between : false,

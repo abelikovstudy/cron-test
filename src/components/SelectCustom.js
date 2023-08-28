@@ -1,13 +1,7 @@
 import Select from 'react-select'
 
-export function SelectCustom({
-    isMulti,
-    options,
-    onDateChange,
-    name,
-    isEnabled
-}){
-
+export function SelectCustom(props){
+    const {isMulti, options, onDateChange, name, isEnabled} = props
     return(
         <Select
         isMulti={isMulti} 
