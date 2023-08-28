@@ -5,7 +5,6 @@ import React from 'react';
 import { minutes, hours, days, daysofweek, months} from '../constants';
 import { isUndefined } from '../utils';
 export function DateChose(){
-
   const [cron, setCron] = React.useState({
     0 : {
       span : "Every"
@@ -25,29 +24,25 @@ export function DateChose(){
   }); 
   const [tabIndex, setTabIndex] = React.useState(0);
   const [result, setResult] = React.useState("");
-
+  
   const onCronChange = (timeElement, index) => {
     setCron({
       ...cron,
       [index] : timeElement
     })
   }
-
-  const  parseCronElements = (data) =>{
+  const parseCronElements = (data) =>{
     switch(data.span){
-      case "Every":
-        return '*';
       case "Between":
-        if (isUndefined(data.between_start) || isUndefined(data.between_end)) return '*'
-        else return data.between_start.value + '-' + data.between_end.value;
+        if ( !(isUndefined(data.between_start) || isUndefined(data.between_end)) ) return data.between_start.value + '-' + data.between_end.value;
       case "Specific":
-        if(isUndefined(data.specific)) return '*'
-        else return data.specific.reduce(
+        if(! isUndefined(data.specific)) return data.specific.reduce(
           (accumulator, currentValue) => accumulator + currentValue.value + ',', ''
         ).slice(0, -1)
+      default:
+        return '*';
     }
   }
-
   const parseCron = (dateObject) => {
     let cronElements = []
     for(let index in dateObject) cronElements.push(parseCronElements(dateObject[index]))
@@ -66,23 +61,23 @@ export function DateChose(){
       </TabList>
 
       <TabPanel> {/* Minute */}
-        <TabContent name="minute" id="minute" tabIndex={tabIndex} corn={onCronChange} selectValues={minutes} />
+        <TabContent name="minute" id="minute" tabIndex={tabIndex} cron={onCronChange} selectValues={minutes} />
       </TabPanel>
 
       <TabPanel> {/* Hour */}
-        <TabContent name="hour" id="hour" tabIndex={tabIndex} corn={onCronChange} selectValues={hours}/>
+        <TabContent name="hour" id="hour" tabIndex={tabIndex} cron={onCronChange} selectValues={hours}/>
       </TabPanel>
 
       <TabPanel> {/* Day */}
-        <TabContent name="day" id="day" tabIndex={tabIndex} corn={onCronChange} selectValues={days}/>
+        <TabContent name="day" id="day" tabIndex={tabIndex} cron={onCronChange} selectValues={days}/>
       </TabPanel>
 
       <TabPanel> {/* Day of week */}
-        <TabContent name="dayofweek" id="dayofweek" tabIndex={tabIndex} corn={onCronChange} selectValues={daysofweek}/>
+        <TabContent name="day of week" id="dayofweek" tabIndex={tabIndex} cron={onCronChange} selectValues={daysofweek}/>
       </TabPanel>
 
       <TabPanel> {/* Months */}
-        <TabContent name="month" id="month" tabIndex={tabIndex} corn={onCronChange} selectValues={months}/>
+        <TabContent name="month" id="month" tabIndex={tabIndex} cron={onCronChange} selectValues={months}/>
       </TabPanel>
   </Tabs>
   <br />

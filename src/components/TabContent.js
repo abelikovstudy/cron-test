@@ -1,7 +1,7 @@
 import React from 'react';
 import { SelectCustom } from './SelectCustom';
 export function TabContent(props){
-    const {name, id, selectValues, tabIndex, corn} = props
+    const {name, id, selectValues, tabIndex, cron} = props
     const [enabledOption, setEnabledOption] = React.useState({
       every : true,
       between : false,
@@ -11,7 +11,7 @@ export function TabContent(props){
     const [dates, setDates] = React.useState({
       span : span
     })
-    React.useEffect(() => {corn(dates,tabIndex)},[dates])
+    React.useEffect(() => {cron(dates,tabIndex)},[dates])
     const onOptionChange = e => { 
       setSpan(e.target.value)
       setDates({
@@ -53,13 +53,34 @@ export function TabContent(props){
         
         <div className="SpanSelect-Option">
             <input type="radio" name={name} value="Between" id={id} onChange={onOptionChange}/>
-            <label class="SpanSelect-Element" htmlFor="everystart">Between <SelectCustom name="between_start" isMulti={false} options={selectValues} onDateChange={onDateChange} isEnabled={enabledOption.between}/> {name} and <SelectCustom name="between_end" isMulti={false} options={selectValues} onDateChange={onDateChange} isEnabled={enabledOption.between}/> {name}.</label>
+            <label class="SpanSelect-Element" htmlFor="everystart">Between 
+            <SelectCustom 
+            name="between_start" 
+            isMulti={false} 
+            options={selectValues} 
+            onDateChange={onDateChange} 
+            isEnabled={enabledOption.between}/> {name} and 
+            <SelectCustom 
+            name="between_end" 
+            isMulti={false} 
+            options={selectValues} 
+            onDateChange={onDateChange} 
+            isEnabled={enabledOption.between}/> {name}.
+            </label>
             <br />
         </div>
         
+        
         <div className="SpanSelect-Option">
             <input type="radio" name={name} value="Specific" id={id} onChange={onOptionChange}/>
-            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): <SelectCustom name="specific" isMulti={true} options={selectValues} onDateChange={onDateChange} isEnabled={enabledOption.specific}/></label>
+            <label class="SpanSelect-Element" htmlFor="specific">Specific {name}(s): 
+            <SelectCustom 
+            name="specific" 
+            isMulti={true} 
+            options={selectValues} 
+            onDateChange={onDateChange} 
+            isEnabled={enabledOption.specific}/>
+            </label>
             <br />    
         </div>
       </div>
